@@ -7,7 +7,11 @@ var Page = require("../models/page");
 
 // GET pages index
 router.get("/", (req, res) => {
-  res.status(200).send("Admin Area");
+  Page.find({})
+    .sort({ sorting: 1 })
+    .exec((err, pages) => {
+      res.status(200).render("admin/pages", { pages });
+    });
 });
 
 // GET add pages
@@ -23,12 +27,12 @@ router.get("/add-page", (req, res) => {
   });
 });
 
-const addPagePostChecker = (req, res, next) => {
-  console.log(req.body);
-  check(req.body.title, "Title must have a value.").notEmpty();
-  check("content", "Content must have a value.").notEmpty();
-  next();
-};
+// const addPagePostChecker = (req, res, next) => {
+//   console.log(req.body);
+//   check(req.body.title, "Title must have a value.").notEmpty();
+//   check("content", "Content must have a value.").notEmpty();
+//   next();
+// };
 
 // POST add pages
 router.post(
