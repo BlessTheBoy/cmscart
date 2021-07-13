@@ -87,4 +87,26 @@ router.post(
   }
 );
 
+// POST reoder pages
+router.post("/reorder-pages", (req, res) => {
+  var ids = req.body["id[]"];
+
+  var count = 0;
+  for (let i = 0; i < ids.length; i++) {
+    const id = ids[i];
+    count++;
+
+    (function (count) {
+      Page.findById(id, function (err, page) {
+        page.sorting = count;
+        page.save(function (err) {
+          if (err) {
+            return console.log(err);
+          }
+        });
+      });
+    })(count);
+  }
+});
+
 module.exports = router;
