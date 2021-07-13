@@ -11,7 +11,7 @@
       <th>Delete</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="sortable">
     <% pages.forEach(function (page) { %>
     <tr id="id_<%= page._id %>" class="<%= page.slug %>">
       <td><%= page.title %></td>
@@ -27,18 +27,21 @@
   </tbody>
 </table>
 
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
 <script>
-  $("tbody").sortable({
-    group: "list",
-    draggable: "tr:not('.home')",
-    ghostClass: "ui-state-highlight",
-    handle: "tr:not('.home')",
-    onSort: function () {
-      var ids = $("tbody").sortable("serialize");
-      var url = "/admin/pages/reorder-pages";
+  $(function () {
+    $("#sortable").sortable({
+      items: "tr:not('.home')",
+      placeholder: "ui-state-highlight",
+      update: function () {
+        var ids = $("tbody").sortable("serialize");
+        var url = "/admin/pages/reorder-pages";
 
-      $.post(url, ids);
-    },
+        $.post(url, ids);
+      },
+    });
+
+    // $("#sortable").disableSelection();
   });
 </script>
 
