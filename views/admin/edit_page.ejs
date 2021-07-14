@@ -1,0 +1,42 @@
+<%- include ('../_layouts/adminheader') %>
+<h2 class="page-title">Edit a page</h2>
+<a href="/admin/pages" class="btn btn-primary">Back to all pages</a>
+<br /><br />
+
+<form action="/admin/pages/edit-page/<%- slug %>" method="post">
+  <div class="form-group mb-3">
+    <label class="form-label" for="">Title</label>
+    <input
+      type="text"
+      placeholder="Title"
+      class="form-control"
+      name="title"
+      value="<%= title %>"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label class="form-label" for="">Slug</label>
+    <input
+      type="text"
+      placeholder="Slug"
+      class="form-control"
+      name="slug"
+      value="<%= slug %>"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label class="form-label" for="">Content</label>
+    <textarea
+      name="content"
+      cols="30"
+      rows="10"
+      placeholder="Content"
+      value="<%= content %>"
+      class="form-control"
+    ></textarea>
+  </div>
+
+  <input type="hidden" name="id" id="<%= id %>" />
+  <button class="btn btn-default">Submit</button>
+</form>
+<%- include ('../_layouts/adminfooter') %>
